@@ -44,8 +44,8 @@ sudo vim /etc/prometheus/netology-test.yml
 11. Подключим правило в prometheus, перезапустим.
 <img src = "img/1-5.png" width = 60%>   
 
-12. Отредактируем сonfig-файл Alertmanager.Перезапустим.  
-sudo nvim /etc/prometheus/alertmanager.yml
+12. Отредактируем сonfig-файл Alertmanager. Перезапустим.  
+sudo vim /etc/prometheus/alertmanager.yml
 <img src = "img/1-6.png" width = 60%>  
 
 13. Проверим интерфейс alertmanager и prometheus
@@ -122,3 +122,22 @@ sudo vim /etc/docker/daemon.json
 
 ---
 
+## Решение 4*
+1. Передем в Grafanу
+<img src = "img/4-1.png" width = 60%>
+sudo apt update  
+sudo apt install curl software-properties-common ca-certificates apt-transport-https -y  
+sudo install -m 0755 -d /etc/apt/keyrings   
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc  
+sudo chmod a+r /etc/apt/keyrings/docker.asc  
+echo \
+"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+$(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null  
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin  
+sudo docker run hello-world  
+sudo systemctl enable docker    
+1. Создадим файл для оверрайда    
+sudo vim /etc/docker/daemon.json    
+Перезапустим docker.    
+<img src = "img/3-1.png" width = 60%>   
